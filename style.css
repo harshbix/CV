@@ -302,24 +302,62 @@ body {
     margin-bottom: 12px;
 }
 
+.job-description {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 5px;
+    border-left: none;
+}
+
 .job-description li {
     position: relative;
-    padding-left: 20px;
-    margin-bottom: 6px;
+    padding-left: 25px;
+    padding-bottom: 15px;
     color: #444;
     font-size: 0.95rem;
     line-height: 1.5;
 }
 
+/* The Dot - Smaller & Pro */
 .job-description li::before {
     content: "";
     position: absolute;
-    left: 6px;
-    top: 8px;
-    width: 6px;
-    height: 6px;
-    background-color: var(--primary-color);
+    left: 0;
+    top: 8px; /* Aligned with first line of text */
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--primary-color);
+    z-index: 2; /* Sits on top of the line */
+}
+
+/* The Connecting Line - Hits center of dot */
+.job-description li::after {
+    content: "";
+    position: absolute;
+    left: 3.5px; /* Center of 8px dot (4px) - half line width (0.5px) */
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.1));
+    z-index: 1;
+}
+
+/* First item: Line starts at the dot */
+.job-description li:first-child::after {
+    top: 12px; /* Center of dot (8px top + 4px radius) */
+}
+
+/* Last item: Line ends at the dot */
+.job-description li:last-child::after {
+    height: 12px; /* Stops at the center of the dot */
+    bottom: auto;
+    background: rgba(44, 62, 80, 0.8); /* Solid color for the short top connector */
+}
+
+.job-description li:last-child {
+    padding-bottom: 0;
 }
 
 @media print {
