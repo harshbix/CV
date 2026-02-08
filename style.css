@@ -361,22 +361,41 @@ body {
 }
 
 @media print {
-    body {
-        background-color: #fff;
-        padding: 0;
-        display: block;
+    @page {
+        size: A4;
+        margin: 0;
     }
+
+    html, body {
+        width: 210mm;
+        height: 297mm;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+    }
+
+    body {
+        display: block;
+        transform: scale(1); /* Ensure no shrinking/growing by browser */
+    }
+
     .page {
         margin: 0;
+        border: none;
         box-shadow: none;
-        width: 100%;
-        min-height: 297mm;
+        width: 210mm;
         height: 297mm;
+        min-height: 297mm;
+        max-height: 297mm;
         page-break-after: always;
         break-after: page;
+        overflow: hidden; /* Force clip to A4 */
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
     }
+
     .page:last-child {
-        page-break-after: avoid;
-        break-after: avoid;
+        page-break-after: auto;
+        break-after: auto;
     }
 }
