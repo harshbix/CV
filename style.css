@@ -16,24 +16,33 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
-    background-color: #f0f0f0;
+    background-color: #525659; /* PDF Viewer Background */
     color: var(--text-color);
     line-height: 1.6;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     min-height: 100vh;
+    padding: 20px 0;
 }
 
 .resume-container {
-    display: flex;
-    width: 210mm; /* A4 Width */
-    min-height: 297mm; /* A4 Height */
-    background-color: var(--main-bg);
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    margin: 20px 0;
+   /* Deprecated in favor of .page structure */
+   display: none; 
 }
 
-/* Sidebar Styles */
+.page {
+    display: flex;
+    width: 210mm;
+    min-height: 297mm;
+    background-color: var(--main-bg);
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden; /* Ensure content stays within A4 bounds */
+}
+
+/* Sidebar Styles - Adapted for Page Context */
 .sidebar {
     width: 35%;
     background-color: var(--sidebar-bg);
@@ -42,6 +51,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 40px;
+    height: 100%; /* Fill the page height */
+    min-height: 297mm;
 }
 
 .profile-image-container {
@@ -58,20 +69,27 @@ body {
     height: 100%;
     object-fit: cover;
     object-position: top center;
+    transform: scale(1.0); /* Ensure no unwanted zoom */
+    transition: transform 0.3s ease;
+}
+
+.profile-image:hover {
+    transform: scale(1.05); /* Subtle interactive effect */
 }
 
 .sidebar-section {
     width: 100%;
 }
 
+/* Sidebar Section Tweaks */
 .sidebar-title {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.3);
-    padding-bottom: 10px;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    padding-bottom: 12px;
     color: var(--accent-color);
 }
 
@@ -96,9 +114,9 @@ body {
     word-break: break-word;
 }
 
-/* Education in Sidebar */
+/* Education Styles */
 .edu-item {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .edu-item:last-child {
@@ -107,58 +125,66 @@ body {
 
 .edu-item .date {
     font-weight: 700;
-    font-size: 0.9rem;
-    color: #bdc3c7;
+    font-size: 0.85rem;
+    color: #dfe6e9; /* Improved contrast for sidebar */
+    background: rgba(255,255,255,0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 5px;
 }
 
 .edu-item .degree {
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.95rem;
-    margin-top: 5px;
-    line-height: 1.4;
+    line-height: 1.35;
+    color: #ecf0f1;
 }
 
 .edu-item .institution {
     font-size: 0.85rem;
-    font-style: italic;
-    opacity: 0.9;
-    margin-top: 3px;
+    font-style: normal;
+    font-weight: 300;
+    opacity: 0.8;
+    margin-top: 4px;
+    color: #bdc3c7;
 }
 
 .edu-details {
     list-style: none;
     margin-top: 5px;
     font-size: 0.85rem;
-    opacity: 0.9;
+    opacity: 0.8;
+    padding-left: 5px;
 }
 
 .edu-details li {
     position: relative;
-    padding-left: 15px;
-    margin-bottom: 3px;
+    padding-left: 10px;
+    margin-bottom: 2px;
 }
 
 .edu-details li::before {
-    content: "•";
+    content: "-";
     position: absolute;
     left: 0;
     color: #bdc3c7;
 }
 
-/* Skills & Languages */
-.skill-list, .lang-list {
-    list-style: none;
-}
-
 .skill-list li, .lang-list li {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-size: 0.9rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
 }
 
-.skill-list li:last-child {
-    border-bottom: none;
+.skill-list li::before, .lang-list li::before {
+    content: "✓";
+    margin-right: 10px;
+    font-size: 0.8rem;
+    opacity: 0.7;
 }
 
 /* Main Content Styles */
@@ -243,39 +269,46 @@ body {
     margin-bottom: 10px;
 }
 
+/* Improved Visual Hierarchy */
 .job-role {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: #2c3e50;
+    margin-bottom: 2px;
 }
 
 .job-company {
+    font-family: 'Open Sans', sans-serif;
     font-weight: 600;
     font-size: 0.95rem;
-    color: #7f8c8d;
-    display: inline-block;
+    color: #555;
+    display: block; /* Stack on new line for clarity */
+    margin-bottom: 2px;
 }
 
 .job-date {
     display: inline-block;
-    font-size: 0.9rem;
-    color: #95a5a6;
-    float: right;
+    font-size: 0.85rem;
+    color: #7f8c8d;
     font-weight: 600;
+    background-color: #f4f6f7;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
 }
 
-.job-description {
-    list-style: none;
-    margin-top: 10px;
+.job-header {
+    margin-bottom: 12px;
 }
 
 .job-description li {
     position: relative;
     padding-left: 20px;
-    margin-bottom: 8px;
-    color: #555;
+    margin-bottom: 6px;
+    color: #444;
     font-size: 0.95rem;
+    line-height: 1.5;
 }
 
 .job-description li::before {
@@ -292,13 +325,20 @@ body {
 @media print {
     body {
         background-color: #fff;
-        margin: 0;
-        box-shadow: none;
+        padding: 0;
+        display: block;
     }
-    .resume-container {
+    .page {
         margin: 0;
         box-shadow: none;
         width: 100%;
-        min-height: 100vh;
+        min-height: 297mm;
+        height: 297mm;
+        page-break-after: always;
+        break-after: page;
+    }
+    .page:last-child {
+        page-break-after: avoid;
+        break-after: avoid;
     }
 }
