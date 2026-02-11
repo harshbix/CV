@@ -9,7 +9,17 @@ def generate_pdf():
         browser = p.chromium.launch()
         page = browser.new_page()
         page.goto(f"file:///{html_path}")
-        page.pdf(path=pdf_path, format="A4", print_background=True)
+        page.pdf(
+            path=pdf_path, 
+            format="A4", 
+            print_background=True,
+            margin={
+                "top": "15mm",
+                "bottom": "15mm",
+                "left": "0mm",
+                "right": "0mm"
+            }
+        )
         browser.close()
         print(f"PDF generated at: {pdf_path}")
 

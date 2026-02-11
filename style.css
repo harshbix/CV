@@ -37,7 +37,7 @@ body {
     min-height: 297mm;
     background-color: var(--main-bg);
     box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    margin-bottom: 20px;
+    margin: 20px 0; /* Only top and bottom margins */
     position: relative;
     overflow: hidden; /* Ensure content stays within A4 bounds */
 }
@@ -152,16 +152,16 @@ body {
 
 .edu-details {
     list-style: none;
+    padding: 0;
     margin-top: 5px;
-    font-size: 0.85rem;
-    opacity: 0.8;
-    padding-left: 5px;
 }
 
 .edu-details li {
-    position: relative;
+    font-size: 0.85rem;
+    color: #bdc3c7;
+    margin-bottom: 3px;
     padding-left: 10px;
-    margin-bottom: 2px;
+    position: relative;
 }
 
 .edu-details li::before {
@@ -185,12 +185,14 @@ body {
     margin-right: 10px;
     font-size: 0.8rem;
     opacity: 0.7;
+    color: #ffffff;
 }
 
 /* Main Content Styles */
 .main-content {
     width: 65%;
     padding: 60px 40px;
+    background-color: var(--main-bg);
 }
 
 /* Header */
@@ -363,7 +365,7 @@ body {
 @media print {
     @page {
         size: A4;
-        margin: 0;
+        margin: 15mm 0; /* Only top and bottom margins */
     }
 
     html, body {
@@ -377,6 +379,7 @@ body {
     body {
         display: block;
         transform: scale(1); /* Ensure no shrinking/growing by browser */
+        padding: 0; /* Remove body padding for print */
     }
 
     .page {
@@ -389,7 +392,7 @@ body {
         max-height: 297mm;
         page-break-after: always;
         break-after: page;
-        overflow: hidden; /* Force clip to A4 */
+        overflow: visible; /* Allow content to flow naturally with print margins */
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
